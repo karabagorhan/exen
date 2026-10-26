@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @source "../";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: #f3f6fa;
@@ -22,6 +23,29 @@ button { cursor: pointer; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
 
+.dark { color-scheme: dark; }
+.dark [class~="bg-white"],
+.dark [class~="bg-white/95"] { background-color: #0f172a !important; }
+.dark [class~="bg-slate-50"],
+.dark [class~="bg-slate-50/60"] { background-color: #172033 !important; }
+.dark [class~="bg-slate-100"],
+.dark [class~="bg-slate-100/80"] { background-color: #1e293b !important; }
+.dark [class~="border-slate-100"],
+.dark [class~="border-slate-200"],
+.dark [class~="border-slate-300"] { border-color: #334155 !important; }
+.dark [class*="text-[#0b"],
+.dark [class*="text-[#17"],
+.dark .text-slate-600,
+.dark .text-slate-700 { color: #e2e8f0 !important; }
+.dark .text-slate-500 { color: #94a3b8 !important; }
+.dark input,
+.dark select,
+.dark textarea { background-color: #111c30; border-color: #334155; color: #e2e8f0; }
+.dark input::placeholder,
+.dark textarea::placeholder { color: #64748b; }
+.dark option { background: #0f172a; color: #e2e8f0; }
+.dark ::-webkit-scrollbar-thumb { background: #475569; }
+
 @keyframes toast-in {
   from { opacity: 0; transform: translateY(12px) scale(.96); }
   to { opacity: 1; transform: translateY(0) scale(1); }
@@ -31,6 +55,6 @@ button { cursor: pointer; }
   body { background: #fff !important; }
   body * { visibility: hidden !important; }
   .print-report { display: block !important; position: absolute; inset: 0; width: 100%; }
-  .print-report, .print-report * { visibility: visible !important; }
+  .print-report, .print-report * { visibility: visible !important; color: #000 !important; background-color: #fff !important; border-color: #cbd5e1 !important; }
   @page { size: A4; margin: 12mm; }
 }

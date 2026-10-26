@@ -24,13 +24,14 @@ npm run build
 
 ## Mevcut kapsam
 
-- Genel bakış, servis işleri, pompalar, müşteriler, teklifler, belgeler, raporlar, bakım takvimi ve ayarlar ekranları
+- Bakım/servis kontrol merkezi, servis işleri, pompalar, müşteriler, teklifler, formlar, belgeler, raporlar, bakım takvimi ve ayarlar ekranları
 - Servis kaydı ekleme ve düzenleme; arıza, yapılan işlemler, test ve garanti alanları
-- Teklif kalemleri, iskonto ve KDV hesaplama
+- TRY, USD ve EUR para birimli teklif kalemleri, iskonto ve KDV hesaplama; dövizleri karıştırmadan ayrı dashboard toplamları
 - Servis kayıtlarını bu tarayıcıda saklama
 - Kabul formu, ön teklif ve servis raporunu kayıt verilerinden PDF olarak indirme
 - Anlamsal durum ve kritiklik rozetleri, gelişmiş filtreler ve sürüklenebilir Kanban pano
-- Pompa künye bilgileri, ekspertiz kontrol listesi, test ölçümleri ve işlem tarihçesi
+- Ön kontrol/kabul formu, pompa bakım checklisti, servis süreci checklisti, ekspertiz, test ölçümleri ve işlem tarihçesi
+- Tarayıcıda saklanan açık/koyu tema tercihi ve süreç koşullarına bağlı iş akışı kontrolleri
 - JSON yedekleme, JSON içe aktarma ve Excel uyumlu CSV dışa aktarma
 - Antetli yazdırma görünümü ve belge doğrulama QR kodu
 - EXEN kurumsal kimliği ve örnek servis verileri
