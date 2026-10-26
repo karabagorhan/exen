@@ -31,6 +31,7 @@ npm run build
 - Kabul formu, ön teklif ve servis raporunu kayıt verilerinden PDF olarak indirme
 - Anlamsal durum ve kritiklik rozetleri, gelişmiş filtreler ve sürüklenebilir Kanban pano
 - Ön kontrol/kabul formu, pompa bakım checklisti, servis süreci checklisti, ekspertiz, test ölçümleri ve işlem tarihçesi
+- Bakımın on aşaması için ayrıntılı alt kontroller, ölçüm alanları ve üretici şartlarına dayalı kabul rehberi
 - Tarayıcıda saklanan açık/koyu tema tercihi ve süreç koşullarına bağlı iş akışı kontrolleri
 - JSON yedekleme, JSON içe aktarma ve Excel uyumlu CSV dışa aktarma
 - Antetli yazdırma görünümü ve belge doğrulama QR kodu

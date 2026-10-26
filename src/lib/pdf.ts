@@ -1,7 +1,7 @@
 import { PDFDocument, rgb } from "pdf-lib";
 import fontkit from "@pdf-lib/fontkit";
 import QRCode from "qrcode";
-import { dateTR, Job, money, totals } from "./model";
+import { dateTR, Job, maintenanceDetails, money, totals } from "./model";
 
 export type DocumentKind = "kabul" | "teklif" | "rapor";
 
@@ -35,7 +35,11 @@ export async function downloadDocument(job:Job, kind:DocumentKind, assets={fontU
     y-=8;const t=totals(job);field("Ara Toplam",money(t.subtotal,job.currency));field(`İskonto (%${job.discount})`,money(t.discount,job.currency));field(`KDV (%${job.vat})`,money(t.vat,job.currency));field("GENEL TOPLAM",money(t.total,job.currency));field("Teklif Durumu",job.approval);line("Onaylanan fiyat ve kapsam ayrı revizyon açılmadan değiştirilmemelidir.");
   }
   if(kind==="rapor"){
-    section("POMPA BAKIM CHECKLIST");for(const item of job.maintenanceChecklist)line(`${item.checked?"[X]":"[ ]"} ${item.label}${item.note?` — ${item.note}`:""}`,8,8);
+    section("POMPA BAKIM CHECKLIST");for(const [index,item] of job.maintenanceChecklist.entries()){
+      const detail=maintenanceDetails[index];line(`${index+1}. ${item.checked?"[X]":"[ ]"} ${item.label}${item.note?` — ${item.note}`:""}`,8,8);
+      for(const check of item.checkpoints||[])line(`${check.checked?"[X]":"[ ]"} ${check.label}`,8,16);
+      if(detail){line(`Ölçüm: ${detail.measurement}`,8,16);line(`Kabul: ${detail.acceptance}`,8,16)}
+    }
     section("SERVİS SÜRECİ CHECKLIST");for(const item of job.serviceChecklist)line(`${item.checked?"[X]":"[ ]"} ${item.label}${item.note?` — ${item.note}`:""}`,8,8);
     section("GERÇEKLEŞTİRİLEN İŞLEMLER");line(job.work||"Henüz gerçekleştirilen işlem kaydedilmedi.");for(const item of job.items)line(`• ${item.quantity} × ${item.description} / ${item.material} (${item.laborHours||0} saat)`,8,8);section("ÖLÇÜM VE TEST");field("Basınç",job.testMetrics.pressure?`${job.testMetrics.pressure} bar`:"Ölçülmedi");field("Sızdırmazlık",job.testMetrics.leak);field("Vibrasyon",job.testMetrics.vibration?`${job.testMetrics.vibration} mm/s`:"Ölçülmedi");field("Rulman sıcaklığı",job.testMetrics.temperature?`${job.testMetrics.temperature} °C`:"Ölçülmedi");field("Motor akımı",job.testMetrics.amperage?`${job.testMetrics.amperage} A`:"Ölçülmedi");line(job.test||"Henüz test açıklaması kaydedilmedi.");section("TEKNİK ÖNERİ VE GARANTİ");line(job.recommendation||"Öneri kaydedilmedi.");field("Garanti",`${job.warrantyMonths} ay`);field("Sonraki Bakım",dateTR(job.nextMaintenance));
   }

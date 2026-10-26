@@ -8,6 +8,8 @@ Servis İşleri ekranında tablo ve Kanban görünümleri arasında geçiş yapa
 
 **Formlar** ekranı ön kontrol, teklif ve servis formlarını aynı kayıt üzerinde yönetir. Pompa bakım ve servis süreci checklistlerinde her adıma ölçüm/not ekleyebilirsiniz. Tekliflerde TRY, USD veya EUR seçilebilir; dashboard bu para birimlerini kur dönüşümü yapmadan ayrı ayrı toplar. Sağ üstteki tema düğmesiyle açık ve koyu görünüm arasında geçiş yapılır.
 
+Servis Formu içindeki **Pompa bakım süreçleri** bölümünde her aşamanın üç ayrıntılı kontrolü, kaydedilecek ölçüm ve kabul ölçütü bulunur. Alt kontrolleri işaretleyip ölçüm/işlem notunu girin; bu bilgiler servis PDF'sine de aktarılır. Teknik kabul sınırlarını pompanın üretici dokümanı ve iş emriyle karşılaştırın.
+
 Bakım, test ve teslim aşamalarında sistem gerekli müşteri onayı ve servis checklist adımlarını kontrol eder. Nihai servis raporu, kayıt Test aşamasına ulaştığında PDF olarak oluşturulur.
 
 İnternet bağlantısı ve kurulum gerekmez. Logo, Türkçe PDF yazı tipi ve uygulama kodu HTML dosyasının içindedir.

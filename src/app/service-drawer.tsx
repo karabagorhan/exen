@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { ClipboardCheck, ClipboardList, Download, FileText, History, Printer, Save, Settings2, Trash2, Wrench, X } from "lucide-react";
-import { Approval, ChecklistItem, Currency, dateTR, findingLabels, Item, Job, money, priorities, Priority, stages, Stage, totals } from "@/lib/model";
+import { Approval, ChecklistItem, Currency, dateTR, findingLabels, Item, Job, maintenanceDetails, money, priorities, Priority, stages, Stage, totals } from "@/lib/model";
 import type { DocumentKind } from "@/lib/pdf";
 import { Field, inputClass, PriorityBadge, StageBadge } from "./service-ui";
 
@@ -29,4 +29,16 @@ function Panel({title,children}:{title:string,children:React.ReactNode}){return 
 function Select({label,value,options,onChange,disabled=false}:{label:string,value:string,options:readonly string[],onChange:(v:string)=>void,disabled?:boolean}){return <label className="block text-xs font-semibold text-slate-600">{label}<select className={`${inputClass} mt-1`} value={value} disabled={disabled} onChange={e=>onChange(e.target.value)}>{options.map(o=><option key={o}>{o}</option>)}</select></label>}
 function Total({label,value,strong=false}:{label:string,value:string,strong?:boolean}){return <div><p className="text-[10px] text-slate-300">{label}</p><p className={`mt-1 ${strong?"text-base font-extrabold":"font-semibold"}`}>{value}</p></div>}
 function Metric({label,value}:{label:string,value:string}){return <div className="rounded-xl bg-slate-50 p-3"><p className="text-[10px] text-slate-400">{label}</p><p className="mt-1 text-sm font-bold text-[#0b2948]">{value}</p></div>}
-function Checklist({items,disabled,onChange}:{items:ChecklistItem[],disabled:boolean,onChange:(items:ChecklistItem[])=>void}){const done=items.filter(i=>i.checked).length;return <div><div className="mb-4 flex items-center gap-3"><div className="h-2 flex-1 overflow-hidden rounded-full bg-slate-100"><div className="h-full rounded-full bg-emerald-500 transition-all" style={{width:`${items.length?done/items.length*100:0}%`}}/></div><span className="text-[10px] font-bold text-slate-500">{done}/{items.length}</span></div><div className="space-y-2">{items.map((item,index)=><div key={item.label} className={`grid gap-2 rounded-xl border p-3 md:grid-cols-[1fr_240px] ${item.checked?"border-emerald-200 bg-emerald-50/60":"border-slate-200 bg-white"}`}><label className="flex items-center gap-3 text-sm font-medium"><input type="checkbox" checked={item.checked} disabled={disabled} onChange={e=>onChange(items.map((row,i)=>i===index?{...row,checked:e.target.checked}:row))}/><span>{item.label}</span></label><input className={inputClass} value={item.note} disabled={disabled} placeholder="Not / ölçüm" onChange={e=>onChange(items.map((row,i)=>i===index?{...row,note:e.target.value}:row))}/></div>)}</div></div>}
+function Checklist({items,disabled,onChange}:{items:ChecklistItem[],disabled:boolean,onChange:(items:ChecklistItem[])=>void}){
+ const done=items.filter(i=>i.checked).length;
+ const detailed=items.length===maintenanceDetails.length&&items[0]?.label==="Demontaj ve parça numaralandırma";
+ const update=(index:number,item:ChecklistItem)=>onChange(items.map((row,i)=>i===index?item:row));
+ return <div><div className="mb-4 flex items-center gap-3"><div className="h-2 flex-1 overflow-hidden rounded-full bg-slate-100"><div className="h-full rounded-full bg-emerald-500 transition-all" style={{width:`${items.length?done/items.length*100:0}%`}}/></div><span className="text-[10px] font-bold text-slate-500">{done}/{items.length}</span></div><div className="space-y-3">{items.map((item,index)=>{
+  const detail=detailed?maintenanceDetails[index]:null;
+  const checks=item.checkpoints||[];
+  return <div key={item.label} className={`rounded-xl border p-4 ${item.checked?"border-emerald-200 bg-emerald-50/60":"border-slate-200 bg-white"}`}>
+   <div className="flex items-start gap-3"><input aria-label={`${item.label} tamamlandı`} className="mt-1" type="checkbox" checked={item.checked} disabled={disabled} onChange={e=>update(index,{...item,checked:e.target.checked})}/><div className="min-w-0 flex-1"><h4 className="text-sm font-bold">{index+1}. {item.label}</h4>{detail&&<p className="mt-1 text-xs leading-5 text-slate-500">Kabul: {detail.acceptance}</p>}</div>{detail&&<span className="shrink-0 text-[10px] font-bold text-slate-500">{checks.filter(c=>c.checked).length}/{checks.length}</span>}</div>
+   {detail&&<div className="mt-3 space-y-2 border-t border-slate-200 pt-3">{checks.map((check,checkIndex)=><label key={check.label} className="flex items-start gap-2 text-xs leading-5 text-slate-600"><input className="mt-1" type="checkbox" checked={check.checked} disabled={disabled} onChange={e=>{const checkpoints=checks.map((c,i)=>i===checkIndex?{...c,checked:e.target.checked}:c);update(index,{...item,checkpoints,checked:checkpoints.every(c=>c.checked)})}}/><span>{check.label}</span></label>)}<p className="pt-1 text-[10px] font-semibold text-sky-700">Kaydedilecek ölçüm: {detail.measurement}</p></div>}
+   <input aria-label={`${item.label} ölçüm ve işlem notu`} className={`${inputClass} mt-3`} value={item.note} disabled={disabled} placeholder={detail?detail.measurement:"Not / ölçüm"} onChange={e=>update(index,{...item,note:e.target.value})}/>
+  </div>})}</div></div>
+}
