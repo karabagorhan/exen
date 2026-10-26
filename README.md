@@ -29,6 +29,10 @@ npm run build
 - Teklif kalemleri, iskonto ve KDV hesaplama
 - Servis kayıtlarını bu tarayıcıda saklama
 - Kabul formu, ön teklif ve servis raporunu kayıt verilerinden PDF olarak indirme
+- Anlamsal durum ve kritiklik rozetleri, gelişmiş filtreler ve sürüklenebilir Kanban pano
+- Pompa künye bilgileri, ekspertiz kontrol listesi, test ölçümleri ve işlem tarihçesi
+- JSON yedekleme, JSON içe aktarma ve Excel uyumlu CSV dışa aktarma
+- Antetli yazdırma görünümü ve belge doğrulama QR kodu
 - EXEN kurumsal kimliği ve örnek servis verileri
 
 Bu sürüm tarayıcıdaki yerel depolamayı kullanır. Veriler başka cihazlarla paylaşılmaz. Çok kullanıcılı müşteri portalı, Supabase bağlantısı, rol bazlı erişim, QR doğrulaması ve imza akışı henüz eklenmemiştir. PDF raporları girilen alanları aktarır; doğrulanmamış teknik sonuç üretmez.
