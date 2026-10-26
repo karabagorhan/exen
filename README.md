@@ -20,6 +20,8 @@ npm run build
 
 `npm run build` statik siteyi `out/` dizinine çıkarır. GitHub Pages için `main` dalına gönderilen değişiklikler `.github/workflows/pages.yml` ile yayımlanır. Pages kaynağı depo ayarlarında **GitHub Actions** olmalıdır. Site adresi `https://karabagorhan.github.io/exen/` şeklindedir.
 
+Çevrim dışı tek HTML dosyası üretmek için `npm run build:offline` çalıştırın. Çıktı `offline-dist/index.html` dosyasıdır; logo, PDF yazı tipi, CSS ve JavaScript içine gömülüdür. Kullanım notları `offline/KULLANIM.md` dosyasındadır.
+
 ## Mevcut kapsam
 
 - Genel bakış, servis işleri, pompalar, müşteriler, teklifler, belgeler, raporlar, bakım takvimi ve ayarlar ekranları

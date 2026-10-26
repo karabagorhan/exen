@@ -4,11 +4,11 @@ import { dateTR, Job, money, totals } from "./model";
 
 export type DocumentKind = "kabul" | "teklif" | "rapor";
 
-export async function downloadDocument(job:Job, kind:DocumentKind){
+export async function downloadDocument(job:Job, kind:DocumentKind, assets={fontUrl:"/exen/DejaVuSans.ttf",logoUrl:"/exen/exen-logo.png"}){
   const doc=await PDFDocument.create(); doc.registerFontkit(fontkit);
-  const fontBytes=await fetch("/exen/DejaVuSans.ttf").then(r=>r.arrayBuffer());
+  const fontBytes=await fetch(assets.fontUrl).then(r=>r.arrayBuffer());
   const font=await doc.embedFont(fontBytes,{subset:true});
-  const logoBytes=await fetch("/exen/exen-logo.png").then(r=>r.arrayBuffer());
+  const logoBytes=await fetch(assets.logoUrl).then(r=>r.arrayBuffer());
   const logo=await doc.embedPng(logoBytes);
   const title=kind==="kabul"?"POMPA ÖN SERVİS / KABUL FORMU":kind==="teklif"?"ARIZA TESPİT / ÖN TEKLİF":"NİHAİ BAKIM-ONARIM SERVİS RAPORU";
   const A4:[number,number]=[595.28,841.89]; let page=doc.addPage(A4), y=740;
